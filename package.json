@@ -4,7 +4,7 @@
   "description": "A full-stack MERN application for tracking library books, allowing users to manage book inventory, check book availability, and track borrowing status. The application includes a frontend built with React for the user interface and a backend server using Express for handling database interactions. Book data is stored in MongoDB, providing a scalable and efficient solution for managing library collections.",
   "main": "index.js",
   "scripts": {
-    "install": "npm install && cd frontend && npm install && cd ..",
+    "setup": "npm install && cd frontend && npm install && cd ..",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node backend/server.js",
     "server": "nodemon backend/server.js",
