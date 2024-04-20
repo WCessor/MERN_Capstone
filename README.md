@@ -20,7 +20,22 @@ npm run setup
 
 This may take a few minutes.
 
-3. Start the development servers:
+3. Create environment variable
+
+In the main project directory, create a new file named:
+```bash
+.env
+```
+Inside the file put:
+```bash
+MONGODB_URI=<your mongo db connection string>
+```
+For example:
+```bash
+MONGODB_URI="mongodb+srv://<username>:<password>@cluster0.njnnt05.mongodb.net/library"
+```
+
+4. Start the development servers:
 
 ```bash
 yarn dev
