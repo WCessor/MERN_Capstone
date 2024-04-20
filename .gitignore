@@ -1,0 +1,51 @@
+# Node modules
+node_modules/
+
+# Logs
+logs/
+*.log
+
+# Dependency directories
+pids/
+logs/
+*.pid
+*.seed
+*.pid.lock
+
+# Environment variables
+.env
+
+# Production build
+build/
+
+# Development tools
+.vscode/
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Yarn
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.pnp.*
+
+# npm
+.npm/
+*.lock.json
+package-lock.json
+
+# Testing
+coverage/
+*.seed
+*.log
+
+# Typescript
+*.tsbuildinfo
+
+# IDE files
+.idea/
