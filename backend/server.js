@@ -4,7 +4,8 @@ require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3001;
-const MONGODB_URI = process.env.MONGODB_URI;; 
+const MONGODB_URI = process.env.MONGODB_URI; 
+console.log(MONGODB_URI)
 
 app.use(function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
@@ -21,7 +22,7 @@ let db;
 async function connectToDatabase() {
     try {
         // Connection URI for MongoDB Atlas
-        const uri = 'mongodb+srv://William:Junebug12!1234rewq@cluster0.njnnt05.mongodb.net/library';
+        const uri = MONGODB_URI;
 
         // Create a new MongoClient
         const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
