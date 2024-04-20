@@ -1,9 +1,10 @@
 const express = require('express');
 const { MongoClient } = require('mongodb');
+require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3001;
-const MONGODB_URI = 'mongodb+srv://William:Junebug12!1234rewq@cluster0.njnnt05.mongodb.net/'; 
+const MONGODB_URI = process.env.MONGODB_URI;; 
 
 app.use(function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
