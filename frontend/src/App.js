@@ -3,6 +3,7 @@ import axios from 'axios';
 import './App.css';
 
 function App() {
+  const baseUrl = 'http://localhost:3000/books';
   const [books, setBooks] = useState([]);
   const [filteredBooks, setFilteredBooks] = useState([]);
   const [availabilityFilter, setAvailabilityFilter] = useState('');
@@ -10,7 +11,7 @@ function App() {
   useEffect(() => {
     async function fetchBooks() {
       try {
-        const response = await axios.get('http://localhost:3001/books');
+        const response = await axios.get(baseUrl);
         setBooks(response.data);
         setFilteredBooks(response.data);
       } catch (error) {
@@ -23,7 +24,7 @@ function App() {
 
   const filterBooksByAvailability = async (avail) => {
     try {
-      const response = await axios.get(`http://localhost:3001/books/avail/${avail}`);
+      const response = await axios.get(`${baseUrl}?avail=${avail}`);
       setFilteredBooks(response.data);
       setAvailabilityFilter(avail);
     } catch (error) {
@@ -33,7 +34,7 @@ function App() {
 
   const fetchAllBooks = async () => {
     try {
-      const response = await axios.get('http://localhost:3001/books');
+      const response = await axios.get(baseUrl);
       setFilteredBooks(response.data);
       setAvailabilityFilter('');
     } catch (error) {
@@ -48,7 +49,7 @@ function App() {
   const handleButtonClick = async (id, avail) => {
     try {
       const updatedAvail = !avail; // Toggle the availability
-      const response = await axios.put(`http://localhost:3001/books/${id}`, { avail: updatedAvail });
+      const response = await axios.put(`${baseUrl}/${id}`, { avail: updatedAvail });
       console.log(response.data.message); // Log the success message
       // Refetch the books after the update
       if (availabilityFilter !== '') {

@@ -3,7 +3,7 @@ const { MongoClient } = require('mongodb');
 require('dotenv').config();
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 const MONGODB_URI = process.env.MONGODB_URI; 
 console.log(MONGODB_URI)
 
@@ -45,8 +45,17 @@ connectToDatabase();
 
 app.get('/books', async (req, res) => {
     try {
-        const books = await db.collection('books').find().toArray();
-        res.json(books);
+        const availQueryParam = req.query.avail;
+        let books;
+
+        if (availQueryParam !== undefined && (availQueryParam === 'true' || availQueryParam === 'false')) {
+            const avail = availQueryParam === 'true'; // Convert query parameter to boolean
+            books = await db.collection('books').find({ avail }).toArray();
+        } else {
+            books = await db.collection('books').find().toArray();
+        }
+
+        res.status(200).json(books);
     } catch (error) {
         console.error('Error fetching books:', error);
         res.status(500).json({ error: 'Internal Server Error' });
@@ -60,17 +69,6 @@ app.get('/books/:id', async (req, res) => {
         res.json(book);
     } catch (error) {
         console.error('Error fetching book by ID:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
-
-app.get('/books/avail/:avail', async (req, res) => {
-    try {
-        const avail = req.params.avail === 'true';
-        const filteredBooks = await db.collection('books').find({ avail }).toArray();
-        res.json(filteredBooks);
-    } catch (error) {
-        console.error('Error fetching books by availability:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
@@ -104,7 +102,7 @@ app.put('/books/:id', async (req, res) => {
 app.delete('/books/:id', async (req, res) => {
     try {
         const result = await db.collection('books').deleteOne({ id: req.params.id });
-        if (result.deletedCount === 0) return res.status(404).json({ error: 'Book not found' });
+        if (result.deletedCount === 0) return res.status(204).send();
         res.json({ message: 'Book deleted successfully' });
     } catch (error) {
         console.error('Error deleting book:', error);
